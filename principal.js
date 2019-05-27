@@ -1,6 +1,9 @@
 const fs= require('fs');
 a='';
 
+var express = require('express');
+var app = express();
+
 let curso1={
     id: 100,
     nombre: 'Fundamentos de programacion',
@@ -62,17 +65,19 @@ const argv = require('yargs')
     else 
     console.log('Elija un ID valido' + '\r\n');
 }
-const {inscripcion} = require('./principal');
-    let crearArchivo = (inscripcion) => {
+
         texto = 'El estudiante: ' + argv.nombre + '\r\n' +
         'con cedula: ' + argv.cedula + '\r\n' +
         'se ha inscrito al curso de: ' + a.nombre + '\r\n' +
         'con una duracion de: ' + a.duracion + '\r\n' +
         'y un valor de: ' + a.valor +'\r\n';
-        fs.writeFile('inscripcion.txt',texto,(err)=>{
-            if (err) throw (err);
-        });
-    }
-    crearArchivo(inscripcion);
+
+
+    app.get('/', function (req, res) {
+        res.send(texto);
+        console.log('Se ha cargado correctamente el archivo')
+      })
+       
+      app.listen(3000)
 
 
